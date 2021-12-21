@@ -1,11 +1,16 @@
 package io.github.simkinsw.spirestats;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class RunService {
 
-    public static void main(String[] args)
+    private RunParser parser;
+
+    public RunService()
     {
         System.out.println("test");
-        RunParser parser = new RunParser();
+        parser = new RunParser();
         
     }
     
