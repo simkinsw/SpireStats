@@ -1,20 +1,86 @@
 package io.github.simkinsw.spirestats;
 
+import java.util.HashMap;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@Entity
 public class RunData {
-    String play_id;
-    boolean victory;
-    String[] master_deck;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    public String ToString()
-    {
-        return "Play ID: " + play_id + "Victory: " + victory + "Deck: " + master_deck;
-    }
+    public int[] goldPerFloor;
+    public int floorReached;
+    public int playtime;
+    public String[] itemsPurged;
+    public int score;
+
+    @Column(unique = true)
+    public String playId;
+    public String localTime;
+    public Boolean isAscensionMode;
+    //public HashMap[] campfireChoices;
+    public String neowCost;
+    public int seedSourceTimestamp;
+    public int circletCount;
+    public String[] masterDeck;
+    public int specialSeed;
+    public String[] relics;
+    public int[] potionsFloorUsage;
+    //public HashMap[] damageTaken;
+    public String seedPlayed;
+    //public HashMap[] potionsObtained;
+    public Boolean isTrial;
+    public String[] pathPerFloor;
+    public String characterChosen;
+    public String[] itemsPurchased;
+    public int campfireRested;
+    public int[] itemPurchaseFloors;
+    public int[] currentHpPerFloor;
+    public int gold;
+    public String neowBonus;
+    public Boolean isProd;
+    public Boolean isDaily;
+    public Boolean chooseSeed;
+    public int campfireUpgraded;
+    public int winRate;
+    public int timestamp;
+    public String[] pathTaken;
+    public String buildVersion;
+    public int purchasedPurges;
+    public Boolean victory;
+    public int[] maxHpPerFloor;
+    //public HashMap[] cardChoices;
+    public int playerExperience;
+    //public HashMap[] relicsObtained;
+    //public HashMap[] eventChoices;
+    public Boolean isBeta;
+    //public HashMap[] bossRelics;
+    public int[] itemsPurgedFloors;
+    public Boolean isEndless;
+    public int[] potionsFloorSpawned;
+    public int ascensionLevel;
 
     @Override
     public boolean equals(Object o)
     {
+        if(o == null) {
+            return false;
+        }
+
         RunData other = (RunData)o;
-        return other.play_id == this.play_id && other.victory == this.victory;
+        return other.playId.equals(this.playId);
     }
 }
