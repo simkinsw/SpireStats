@@ -6,12 +6,14 @@ import org.springframework.stereotype.Service;
 public class RunService {
 
     private RunParser parser;
+    private RunRepo repo;
 
-    public RunService()
+    public RunService(RunParser parser, RunRepo repo)
     {
-        System.out.println("test");
-        parser = new RunParser();
-        
+        this.parser = parser;
+        this.repo = repo;       
+        RunData rd = parser.readFromFile("1639586633.run");
+        repo.save(rd);
     }
     
 }
