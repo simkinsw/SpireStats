@@ -1,12 +1,16 @@
 package io.github.simkinsw.spirestats;
 
-import java.util.HashMap;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
@@ -19,33 +23,40 @@ public class RunData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    public Long id;
 
     public int[] goldPerFloor;
     public int floorReached;
     public int playtime;
-    public String[] itemsPurged;
+    //public String[] itemsPurged;
     public int score;
 
     @Column(unique = true)
     public String playId;
+
     public String localTime;
     public Boolean isAscensionMode;
-    //public HashMap[] campfireChoices;
+
+    
+    @OneToMany(mappedBy = "runData", fetch = FetchType.LAZY,
+    cascade = CascadeType.ALL)
+    public Set<CampfireData> campfireChoices;
+    
+
     public String neowCost;
-    public int seedSourceTimestamp;
+    public long seedSourceTimestamp;
     public int circletCount;
-    public String[] masterDeck;
+    //public String[] masterDeck;
     public int specialSeed;
-    public String[] relics;
+    //public String[] relics;
     public int[] potionsFloorUsage;
     //public HashMap[] damageTaken;
     public String seedPlayed;
     //public HashMap[] potionsObtained;
     public Boolean isTrial;
-    public String[] pathPerFloor;
+    //public String[] pathPerFloor;
     public String characterChosen;
-    public String[] itemsPurchased;
+    //public String[] itemsPurchased;
     public int campfireRested;
     public int[] itemPurchaseFloors;
     public int[] currentHpPerFloor;
@@ -57,7 +68,7 @@ public class RunData {
     public int campfireUpgraded;
     public int winRate;
     public int timestamp;
-    public String[] pathTaken;
+    //public String[] pathTaken;
     public String buildVersion;
     public int purchasedPurges;
     public Boolean victory;
@@ -73,9 +84,14 @@ public class RunData {
     public int[] potionsFloorSpawned;
     public int ascensionLevel;
 
+    public void saveCampfires() {
+        for(CampfireData cd : campfireChoices) {
+            cd.runData = this;
+        }
+    }
+
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if(o == null) {
             return false;
         }
