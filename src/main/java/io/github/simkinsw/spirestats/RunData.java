@@ -84,9 +84,10 @@ public class RunData {
     public int[] potionsFloorSpawned;
     public int ascensionLevel;
 
-    public void saveCampfires() {
-        for(CampfireData cd : campfireChoices) {
-            cd.runData = this;
+    public void SetCampfireChoices(Set<CampfireData> campfires) {
+        campfireChoices = campfires;
+        for (CampfireData campfire : campfires) { 
+            campfire.runData = this; 
         }
     }
 

@@ -20,13 +20,11 @@ public class RunService {
         runRepo = newRunRepo;   
         campfireRepo = newCampfireRepo;    
         RunData rd = parser.readFromFile("1639586633.run");
-        rd.saveCampfires();
         runRepo.save(rd);
         rd = parser.readFromFile("1619238219.run");
-        rd.saveCampfires();
         runRepo.save(rd);
 
-        /*
+        
         log.info(runRepo.findByPlayId(rd.playId).characterChosen);
         log.info("campfire choices found:");
         log.info("---------------------------");
@@ -34,7 +32,7 @@ public class RunService {
             log.info(cf.key);
         }
         log.info("");
-        */
+        
         
     }
     
