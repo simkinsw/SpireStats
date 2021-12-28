@@ -1,0 +1,22 @@
+<div th:switch="${runs}">
+    <h2 th:case="null">No runs yet!</h2>
+    <div th:case="*">
+        <h2>All Runs</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Character</th>
+                    <th>Ascension</th>
+                    <th>Victory?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="run : ${runs}">
+                    <td th:text="${run.characterChosen}"></td>
+                    <td th:text="${run.ascensionLevel}"></td>
+                    <td th:text="${run.victory}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>      
+</div>

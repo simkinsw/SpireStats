@@ -23,17 +23,11 @@ public class RunService {
         runRepo.save(rd);
         rd = parser.readFromFile("1619238219.run");
         runRepo.save(rd);
+        
+    }
 
-        
-        log.info(runRepo.findByPlayId(rd.playId).characterChosen);
-        log.info("campfire choices found:");
-        log.info("---------------------------");
-        for (CampfireData cf : campfireRepo.findByRunData(runRepo.findByPlayId(rd.playId))) {
-            log.info(cf.key);
-        }
-        log.info("");
-        
-        
+    public Iterable<RunData> findAllRuns() {
+        return runRepo.findAll();
     }
     
 }

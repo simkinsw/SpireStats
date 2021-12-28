@@ -21,9 +21,11 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @Entity
 public class RunData {
 
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     public Long id;
+
 
     public int[] goldPerFloor;
     public int floorReached;
@@ -84,7 +86,7 @@ public class RunData {
     public int[] potionsFloorSpawned;
     public int ascensionLevel;
 
-    public void SetCampfireChoices(Set<CampfireData> campfires) {
+    public void setCampfireChoices(Set<CampfireData> campfires) {
         campfireChoices = campfires;
         for (CampfireData campfire : campfires) { 
             campfire.runData = this; 
