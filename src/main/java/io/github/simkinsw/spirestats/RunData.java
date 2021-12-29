@@ -1,5 +1,8 @@
 package io.github.simkinsw.spirestats;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -7,10 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
@@ -44,6 +45,9 @@ public class RunData {
     cascade = CascadeType.ALL)
     public Set<CampfireData> campfireChoices;
     
+    @OneToMany(mappedBy = "runData", fetch = FetchType.LAZY,
+    cascade = CascadeType.ALL)
+    public Set<CardChoiceData> cardChoices;
 
     public String neowCost;
     public long seedSourceTimestamp;
@@ -75,7 +79,6 @@ public class RunData {
     public int purchasedPurges;
     public Boolean victory;
     public int[] maxHpPerFloor;
-    //public HashMap[] cardChoices;
     public int playerExperience;
     //public HashMap[] relicsObtained;
     //public HashMap[] eventChoices;
@@ -85,6 +88,22 @@ public class RunData {
     public Boolean isEndless;
     public int[] potionsFloorSpawned;
     public int ascensionLevel;
+
+    public void setCardChoices(Set<HashMap<String, Object>> choiceEvents) {
+        cardChoices = new HashSet<CardChoiceData>();
+        for (HashMap<String, Object> choiceEvent : choiceEvents) {
+            int floor = (int)choiceEvent.get("floor");
+            String picked = (String)choiceEvent.get("picked");
+            List<String> unpicked = (List<String>)choiceEvent.get("not_picked");
+
+            if(!picked.equals("SKIP")) {
+                cardChoices.add(new CardChoiceData(picked, true, floor, this));
+            }
+            for (String name : unpicked) {
+                cardChoices.add(new CardChoiceData(name, false, floor, this));
+            }
+        } 
+    }
 
     public void setCampfireChoices(Set<CampfireData> campfires) {
         campfireChoices = campfires;

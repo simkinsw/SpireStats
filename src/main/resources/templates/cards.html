@@ -1,0 +1,24 @@
+<div th:switch="${cardNames}">
+    <h2 th:case="null">Not working :(</h2>
+    <div th:case="*">
+        <h2>All Cards</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Card Name</th>
+                    <th>Picked</th>
+                    <th>Unpicked</th>
+                    <th>Pick Rate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="name : ${cardNames}">
+                    <td th:text="${name}"></td>
+                    <td th:text="${pickData.get(name).get('picked')}"></td>
+                    <td th:text="${pickData.get(name).get('unpicked')}"></td>
+                    <td th:text="${pickData.get(name).get('percent')}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>      
+</div>
